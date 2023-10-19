@@ -1,13 +1,13 @@
-// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 contract TheBlockchainCoders{
     string public name = "The BlockChain Coders";
     string public symbol = "TBC";
     string public standard = "@theblockchaincoders";
-    string public totalSupply;
-    string public ownerOfContract;
-    string public _userId;
+    uint256 public totalSupply;
+    address public ownerOfContract;
+    uint256 public _userId;
 
     address[] public holderToken;
 
@@ -15,4 +15,80 @@ contract TheBlockchainCoders{
 
     event Approval(address indexed _owner, address indexed _spender, uint256 _value);
 
+    mapping(address=>TokenHolderInfo) public tokenHolderInfos;
+
+    struct TokenHolderInfo{
+        uint256 _tokenId;
+        address _form;
+        address _to;
+        uint256 _totalToken;
+        bool _tokenHolder;
+    }
+
+    mapping (address => uint256) public balanceOf;
+    mapping (address => mapping(address=>uint256)) public allowance;
+
+    constructor(uint256 _initialSupply){
+        ownerOfContract=msg.sender;
+        balanceOf[msg.sender]=_initialSupply;
+        totalSupply=_initialSupply;
+    }
+
+    //HALPER FUNCTION
+    function inc() internal{
+        _userId++;
+    }
+
+    // TRANSFER FUNCTION
+    function transfer(address _to, uint256 _value) public returns(bool success){
+        require(balanceOf[msg.sender]>=_value);
+        inc();
+
+        balanceOf[msg.sender]-=_value;
+        balanceOf[_to]+=_value;
+
+        TokenHolderInfo storage tokenHolderInfo = tokenHolderInfos[_to];
+
+        tokenHolderInfo._to=_to;
+        tokenHolderInfo._form=msg.sender;
+        tokenHolderInfo._tokenHolder=true;
+        tokenHolderInfo._totalToken=_value;
+        tokenHolderInfo._tokenId=_userId;
+
+        holderToken.push(_to);
+
+        emit Transfer(msg.sender, _to, _value);
+
+        return true;
+        
+    }
+
+    // TRANSFER FORM
+    function transferForm(address _form, address _to, uint256 _value) public returns(bool success){
+        require(_value<=balanceOf[_form]);
+        require(_value<=allowance[_form][msg.sender]);
+
+        balanceOf[_form]-=_value;
+        balanceOf[_to]+=_value;
+
+        allowance[_form][msg.sender]-=_value;
+
+        emit Transfer(_form, _to, _value);
+    }
+
+    // GET TOKEN HOLDER DATA
+    function getTokenHolderData(address _address) public view returns(uint256, address, 
+    address, uint256, bool){
+        return(
+            tokenHolderInfos[_address]._tokenId,
+            tokenHolderInfos[_address]._to,
+            tokenHolderInfos[_address]._form,
+            tokenHolderInfos[_address]._totalToken,
+            tokenHolderInfos[_address]._tokenHolder
+        );
+    }
+
+    function getTokenHolder() public view returns(address[] memory){
+        return holderToken;
+    }
 }
