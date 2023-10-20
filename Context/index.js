@@ -53,6 +53,8 @@ export const StateContextProvider = ({ children }) => {
       const tokenOwnerOfContract = await TOKEN_CONTRACT.ownerOfContract();
       const tokenAddress = await TOKEN_CONTRACT.address;
 
+      //   console.log(tokenHolders);
+
       const nativeToken = {
         tokenAddress: tokenAddress,
         tokenName: tokenName,
@@ -65,7 +67,42 @@ export const StateContextProvider = ({ children }) => {
       };
 
       setNativeToken(nativeToken);
-      console.log(nativeToken);
+      //   console.log(nativeToken);
+
+      //   GETTING TOKEN HOLDERS
+      const getTokenHolder = await TOKEN_CONTRACT.getTokenHolder();
+      setTokenHolders(getTokenHolder);
+
+      //   GETTING TOKEN HOLDER DATA
+      if (account) {
+        const getTokenHolderData = await TOKEN_CONTRACT.getTokenHolderData(
+          account
+        );
+        const currentHolder = {
+          tokenId: getTokenHolderData[0].toNumber(),
+          from: getTokenHolderData[1],
+          to: getTokenHolderData[2],
+          totalToken: ethers.utils.formatEther(
+            getTokenHolderData[3].toString()
+          ),
+          tokenHolder: getTokenHolderData[4],
+        };
+        setCurrentHolder(currentHolder);
+      }
+
+      // TOKEN SALE CONTRACT
+      const TOKEN_SALE_CONTRACT = await connectingTOKEN_SALE_CONTRACT();
+      const tokenPrice = await TOKEN_SALE_CONTRACT.tokenPrice();
+      const tokenSold = await TOKEN_SALE_CONTRACT.tokenSold();
+      const tokenSaleBalance = await TOKEN_CONTRACT.balanceOf(
+        "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+      );
+
+      const tokenSale = {
+        tokenPrice: ethers.utils.formatEther(tokenPrice.toString()),
+        tokenSold: tokenSold.toNumber(),
+        tokenSaleBalance: ethers.utils.formatEther(tokenSaleBalance.toString()),
+      };
     } catch (error) {
       console.log(error);
     }
