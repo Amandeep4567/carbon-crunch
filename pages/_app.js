@@ -7,19 +7,19 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </StateContextProvider>
 
-      <script src="assests/js/jquery-1.12.4.min.js"></script>
-      <script src="assests/bootstrap/js/bootstrap.min.js"></script>
-      <script src="assests/owlcarousel/js/owl.carousel.min.js"></script>
-      <script src="assests/js/magnific-popup.min.js"></script>
-      <script src="assests/js/waypoints.min.js"></script>
-      <script src="assests/js/parallax.js"></script>
-      <script src="assests/js/jquesry.countdown.min.js"></script>
-      <script src="assests/js/particles.min.js"></script>
-      <script src="assests/js/jquery.dd.min.js"></script>
-      <script src="assests/js/jquery.counterup.min.js"></script>
-      <script src="assests/js/spop.min.js"></script>
-      <script src="assests/js/notification.js"></script>
-      <script src="assests/js/scripts.js"></script>
+      <script src="assets/js/jquery-1.12.4.min.js"></script>
+      <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+      <script src="assets/owlcarousel/js/owl.carousel.min.js"></script>
+      <script src="assets/js/magnific-popup.min.js"></script>
+      <script src="assets/js/waypoints.min.js"></script>
+      <script src="assets/js/parallax.js"></script>
+      <script src="assets/js/jquery.countdown.min.js"></script>
+      <script src="assets/js/particles.min.js"></script>
+      <script src="assets/js/jquery.dd.min.js"></script>
+      <script src="assets/js/jquery.counterup.min.js"></script>
+      <script src="assets/js/spop.min.js"></script>
+      <script src="assets/js/notification.js"></script>
+      <script src="assets/js/scripts.js"></script>
       <script src="index.js"></script>
     </>
   );
