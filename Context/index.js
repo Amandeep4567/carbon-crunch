@@ -37,7 +37,6 @@ export const StateContextProvider = ({ children }) => {
       setAddress(account);
       //   TOKEN CONTRACT
       const TOKEN_CONTRACT = await connectingTOKENCONTRACT();
-      console.log(TOKEN_CONTRACT);
       let tokenBalance;
       if (account) {
         tokenBalance = await TOKEN_CONTRACT.balanceOf(account);
@@ -103,6 +102,10 @@ export const StateContextProvider = ({ children }) => {
         tokenSold: tokenSold.toNumber(),
         tokenSaleBalance: ethers.utils.formatEther(tokenSaleBalance.toString()),
       };
+      setTokenSale(tokenSale);
+      console.log(tokenSale);
+      console.log(currentHolder);
+      console.log(nativeToken);
     } catch (error) {
       console.log(error);
     }
@@ -112,8 +115,60 @@ export const StateContextProvider = ({ children }) => {
     fetchInitailData();
   }, []);
 
+  //   BUY TOKEN
+  const buyToken = async (nToken) => {
+    try {
+      const amount = ethers.utils.parseUnits(nToken.toString(), "ether");
+      const contract = await connectingTOKEN_SALE_CONTRACT();
+
+      const buying = await contract.buyToken(nToken, {
+        value: amount.toString(),
+      });
+
+      await buying.wait();
+      console.log(buying);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const transferNativeToken = async () => {
+    try {
+      const TOKEN_SALE_ADDRESS = "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512";
+      const TOKEN_AMOUNT = 500;
+      const tokens = TOKEN_AMOUNT.toString();
+      const transferAmount = ethers.utils.parseEther(tokens);
+
+      const contract = await connectingTOKENCONTRACT();
+      const transaction = await contract.transfer(
+        TOKEN_SALE_ADDRESS,
+        transferAmount
+      );
+      console.log(contract);
+      await transaction.wait();
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <StateContext.Provider value={{ TOKEN_ICO }}>
+    <StateContext.Provider
+      value={{
+        transferNativeToken,
+        buyToken,
+        connectWallet,
+        setAddress,
+        TOKEN_ICO,
+        currentHolder,
+        tokenSale,
+        tokenHolders,
+        nativeToken,
+        balance,
+        address,
+      }}
+    >
       {children}
     </StateContext.Provider>
   );
