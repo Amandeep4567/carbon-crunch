@@ -17,18 +17,3 @@ All Projects Source Code: https://www.theblockchaincoders.com/SourceCode
 Official Website: https://www.theblockchaincoders.com
 
 Book 1 -1 Appointment: https://bit.ly/Book-1-1-Appointment
-
-"dependencies": {
-"@next/font": "13.4.16",
-"ethers": "^5.7.2",
-"next": "13.4.16",
-"react": "18.2.0",
-"react-countdown": "^2.3.5",
-"react-dom": "18.2.0",
-"react-icons": "^4.10.1",
-"web3modal": "^1.9.9"
-},
-"devDependencies": {
-"@nomicfoundation/hardhat-toolbox": "^2.0.0",
-"hardhat": "^2.12.0"
-}
