@@ -5,5 +5,3 @@
 ![Screenshot (181)](https://github.com/Amandeep4567/carbon-crunch/assets/90441055/151db211-15d2-484a-9498-bfabfd5bb4bd)
 ![Screenshot (180)](https://github.com/Amandeep4567/carbon-crunch/assets/90441055/c98132f4-63fa-4699-9929-8178dc31d582)
 
-
-
