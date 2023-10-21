@@ -38,16 +38,7 @@ const Header = ({ address, setAddress, connectWallet }) => {
             data-animaiton-delay="1s"
             className="navbar-brand page-scroll animation"
           >
-            <img
-              src="assets/images/logo.png"
-              alt="logo"
-              className="logo_light"
-            />
-            <img
-              src="assets/images/logo_dark.png"
-              alt="logo"
-              className="logo_dark"
-            />
+            <h3 className="text-white">CARBON CRUNCH</h3>
           </a>
 
           <button
