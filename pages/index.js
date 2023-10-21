@@ -48,9 +48,7 @@ const index = () => {
       <TokenSale buyToken={buyToken} tokenSale={tokenSale} />
       <Distribution />
       <MobileApp />
-      <Team />
-      <Faq />
-      <Contact />
+      {/* <Contact /> */}
       <Footer />
     </div>
   );
